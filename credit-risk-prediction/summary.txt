@@ -1,0 +1,30 @@
+    PREPROCESSING:
+    We worked on a credit risk prediction dataset in order to train machine learning models to 
+    predict whether a customer will default on a loan. We found missing values in the 
+    person_emp_length and loan_int_rate columns. After examining the data, we decided to fill 
+    the missing values using the median because it is less affected by extreme values. 
+    We also found invalid employment-length values of 123 years and treated them as missing before
+    filling them with the median. For categorical data, we used one-hot encoding for nominal features,
+    ordinal encoding for loan_grade, and binary encoding for the historical default feature.
+
+    MODELING:
+    For model performance, we first trained baseline Decision Tree and Random Forest models without 
+    tuning the hyperparameters. We split the dataset into 70% training data and 30% testing data 
+    using stratification so that the proportion of defaults and non-defaults remained similar in 
+    both sets. We then optimized both models using GridSearchCV with 5-fold cross-validation and 
+    compared their accuracy, precision, recall, and F1-score.
+
+    The baseline Random Forest performed best overall. Although we optimized the Random Forest using 
+    GridSearchCV, there was very little improvement, and the optimized model actually had slightly 
+    lower accuracy and recall. I would choose the baseline Random Forest because it had slightly 
+    higher recall and fewer false negatives than the optimized Random Forest. Recall is especially 
+    important in credit risk prediction because we want to catch as many customers as possible who 
+    will actually default, since missing these customers could result in financial loss.
+
+    FEATURE PROCESSING:
+    The loan_percent_income feature was the most important feature in the Random Forest model. 
+    Other important features included person_income, loan_int_rate, and loan_grade_encoded. 
+    I personally expected loan grade to be the most important feature, but the model found loan 
+    percentage of income to be more useful for its predictions. In this context, feature importance 
+    means that the feature contributed more to reducing impurity when the Random Forest made its 
+    splits; it does not mean that the feature directly causes credit default.
